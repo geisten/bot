@@ -10,11 +10,13 @@ test:
 
 lint:
 	@echo "\nRunning Pylint against source and test files...\n"
-	@pylint **/*.py
+	@-pylint **/*.py
 	@echo "\nRunning Flake8 against source and test files...\n"
-	@flake8
+	@-flake8 --exclude .git,__pycache__,venv
+	@echo "\nRunning mypy against source and test files...\n"
+	@-mypy **/*.py
 	@echo "\nRunning Bandit against source files...\n"
-	@bandit -r
+	@-bandit -r **/*.py -x **/test_*.py
 
 version:
 	@echo $(TAG)
