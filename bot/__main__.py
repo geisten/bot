@@ -1,4 +1,4 @@
-'''The main program'''
+"""The main program"""
 
 from .app import run
 
