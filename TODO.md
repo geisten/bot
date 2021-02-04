@@ -4,8 +4,8 @@ TODO list to implement an MVP trade bot
 
 ## Todo
 
-- [ ] Simuliere Preisverlauf mit random walk und überprüfe algo
-- [ ] Create strategy module  
+- [x] Simuliere Preisverlauf mit random walk und überprüfe algo
+- [x] Create strategy module  
   - [ ] Create Test for strategy modules
 - [ ] Implementiere Schnittstelle zum senden von kauf/verakuf order infos, starten, stoppen der Prozesse
 - [ ] Implementiere Schnittstelle zum starten und stoppen des Service (Bots)
