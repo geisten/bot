@@ -2,16 +2,16 @@
 from random import random
 import os
 from datetime import datetime, timedelta
-import pandas as pd # type: ignore
+import pandas as pd  # type: ignore
 
 
 def random_walker(data_length: int):
     """Create a random walk data list"""
     # seed(1)
     random_walk = list()
-    random_walk.append(-1 if random() < 0.5 else 1)
+    random_walk.append(-1 if random() < 0.5 else 1)  # nosec
     for i in range(0, data_length):
-        movement = -1 if random() < 0.5 else 1
+        movement = -1 if random() < 0.5 else 1  # nosec
         value = random_walk[i] + movement
         random_walk.append(value)
     return random_walk

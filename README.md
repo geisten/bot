@@ -1,4 +1,4 @@
-# geisten trading bot
+# The Geisten Trading Bot
 
 A simple project blueprint for python packages.
 
@@ -6,7 +6,7 @@ A simple project blueprint for python packages.
 
 To setup this template for your project run
 
-``` 
+```sh
 
 sh ./configure_project.sh [PROJECT NAME]
 ```
@@ -24,7 +24,7 @@ If you want to backtest a trading strategy using Python, you can 1) run your bac
 
 For testing strategies the geisten bot can be started from the command line.
 
-### GeistenBot Database Design
+### Geisten Trading Bot Database Design
 
 A plain CSV data file format is chosen as Database for the geisten trading bot.
 
@@ -36,3 +36,5 @@ However, a main argument for CSV files in our application is the reduction of de
 ## Developing
 
 Use `make lint` to validate the code changes.
+
+Before changes are added and pushed, the code must be validated via `make lint` . A zero tolerance policy applies when committing changes to the 'main' branch. Only bug-free code is allowed to be checked in.

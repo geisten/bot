@@ -16,8 +16,8 @@ from collections.abc import Iterable
 from datetime import datetime, timezone
 from typing import Callable, NamedTuple
 
-import numpy as np # type: ignore
-import talib # type: ignore
+import numpy as np  # type: ignore
+import talib  # type: ignore
 
 
 class Order(NamedTuple):  # pylint: disable=inherit-non-class
@@ -140,7 +140,7 @@ class TradingBot:
             The current price time series
         """
 
-        price = trend[-1]
+        price = list(trend)[-1]
         impulse = self.bot(trend, self.purchased)
         if impulse > 0.2 and self.purchased.amount > 0:
             self.seller(impulse, price)
@@ -195,7 +195,7 @@ def rsi_analyzer(buy_limit: float, sell_limit: float, moving_average_windows: in
         # pylint: disable=unused-argument
         moving_avg = moving_average(trend, moving_average_windows)[-1]
         rsi = talib.RSI(trend, timeperiod=rsi_window)[-1]
-        price = trend[-1]
+        price = list(trend)[-1]
         logging.debug("price: %f, moving avg: %f, rsi: %f",
                       price, moving_avg, rsi)
         if math.isnan(moving_avg) is False and math.isnan(rsi) is False:
