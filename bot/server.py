@@ -1,10 +1,11 @@
 """The geisten bot service"""
 import logging
 from datetime import datetime
+from typing import Optional
 from fastapi import FastAPI
 
 from pydantic import BaseModel
-from bot.bot import OrderBook, Order, rsi_analyzer
+from bot.bot import TradingBot, Order, rsi_analyzer
 
 
 class Offer(BaseModel):
@@ -19,17 +20,20 @@ class PlaceOrder(BaseModel):
     amount: float
     price: float
 
+    @classmethod
+    def from_order(cls, order: Order):
+        """Creates a new PlaceOrder object from ORder object"""
+        return cls(order.timestamp, order.amount, order.price)
+
 
 data: list[Offer] = []
 prices: list(float) = []
 
 app = FastAPI()
 
-def handler(type, timestamp, amount, price):
-    print("order: {}, at: {}, amount: {}, price: {}, sum: {}".format(type,timestamp, amount, price, amount * price))
-    
-logging.basicConfig(filename='order_book.log', encoding='utf-8', level=logging.DEBUG)
-order_book = OrderBook(1000, rsi_analyzer(0.003, .008, 24,48),handler)
+logging.basicConfig(filename='order_book.log',
+                    encoding='utf-8', level=logging.DEBUG)
+order_book = TradingBot(1000, rsi_analyzer(0.003, .008, 24, 48), None, None)
 
 
 @app.get("/")
@@ -44,10 +48,11 @@ async def offers() -> list[Offer]:
     return data
 
 
-@app.post("/offers/", response_model=Order)
+@app.post("/offers/", response_model=Optional[Order])  # pylint: disable=unsubscriptable-object
 async def post_offer(offer: Offer):
     """Create a new offer"""
+
     data.append(offer)
     prices.append(offer.price)
     order: Order = order_book(prices)
-    return PlaceOrder(order.timestamp, order.amount, order.price)
+    return PlaceOrder.from_order(order) if order is not None else None

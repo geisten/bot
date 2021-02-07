@@ -18,6 +18,6 @@ setuptools.setup(
         'interactive': ['matplotlib>=2.2.0', 'jupyter']
     },
     entry_points={
-        'console_scripts': ['bot=app:main']
+        'console_scripts': ['bot=app:run']
     }
 )
