@@ -10,7 +10,7 @@ setuptools.setup(
     author='Germar Schlegel',
     author_email='g.schlegel@geisten.com',
     url='geisten.com',
-    packages=['bot'],
+    packages=['bot', 'strategy'],
     install_requires=install_requires,
     setup_requires=['pytest-runner', 'flake8', 'mypy', 'bandit'],
     tests_require=['pytest'],

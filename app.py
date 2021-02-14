@@ -12,10 +12,11 @@ from typing import Callable
 import numpy as np
 
 import bot
+import strategy
 
-# List all available strategies
+# List all available strategies. TOTO replace with parsing of strategy package
 BOTS: dict[str, Callable[[dict], Callable[[Iterable[float], bot.Purchased], float]]] = {
-    "rsi": bot.rsi_bot_from_json}
+    "rsi": strategy.rsi_from_json}
 
 
 class OrderBook:
@@ -90,8 +91,8 @@ def run():
                 cash, algo, buy_handler(order_report), sell_handler(order_report))
         else:
             if data['name'] is None:
-                raise ValueError("bot name not set")
-            raise ValueError("Invalid bot name: '%s'" % data['name'])
+                raise ValueError("strategy name not set")
+            raise ValueError("Invalid strategy name: '%s'" % data['name'])
 
     trend: list[float] = []
     reader = csv.reader(sys.stdin)
